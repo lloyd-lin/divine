@@ -1,0 +1,123 @@
+﻿<%- include header.html %>
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-info">
+  <div class="panel-heading">Panel heading without title</div>
+  <div class="panel-body">
+    Panel content
+  </div>
+  </div>
+  </div>
+   <div class="col-md-7">
+   
+<form action="" class="form-horizontal"  role="form">
+        <fieldset>
+            <legend>预约时间</legend>
+            <div class="form-group">
+                <label for="dtp_input1" class="col-md-3 control-label">DateTime Picking</label>
+                <div class="input-group date form_datetime col-md-7" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                    <input class="form-control" size="16" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                </div>	
+				<input type="hidden" id="dtp_input1" value="" /><br/>
+            </div>
+			<input type="button" value="提交" id="submit" class="btn btn-primary"/>
+        </fieldset>
+    </form>
+
+	<div class="table-responsive">
+    <table class="table">  
+      <caption>Table</caption>  
+      <thead>  
+        <tr>  
+          <th>#</th>
+          <th>Day1</th>  
+          <th>Day2</th>
+          <th>Day3</th>  
+		  <th>Day4</th>  
+		  <th>Day5</th>  
+        </tr>  
+      </thead>  
+      <tbody>  
+        <tr class="active">  
+          <td>19:00</td>
+          <td class="success" >可预约</td>  
+          <td class="warning">已保留</td> 
+          <td>已预约</td>  
+		  <td class="success" >可预约</td>  
+          <td class="warning">已保留</td> 
+        </tr>
+        <tr class=>  
+          <td>19:30</td>
+          <td class="success" >可预约</td>  
+          <td class="warning">已保留</td> 
+          <td>已预约</td>  
+		  <td class="success" >可预约</td>  
+          <td class="warning">已保留</td>   
+        </tr>
+        <tr>  
+          <td>20:00</td> 
+          <td class="success" >可预约</td>  
+          <td class="warning">已保留</td> 
+          <td>已预约</td>  
+		  <td class="success" >可预约</td>  
+          <td class="warning">已保留</td> 
+        </tr>
+      </tbody>  
+    </table>
+    </div>
+   </div>
+   <div class="col-md-2"></div>
+  </div>
+
+<script src="/javascripts/jquery.js"></script>
+<script src="/javascripts/bootstrap.js"></script>
+<script src="/javascripts/divine.js"></script>
+<script src="/javascripts/timepicker/bootstrap-datetimepicker.js"></script>
+<script src="/javascripts/timepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript">
+var localDate;
+var filterList = [];
+$.ajax({url: "/filterDate", 
+			success:function(result){
+				for (var i = 0; i<result.length; i++){
+					var localtime = new Date(result[i].reserve_time);
+					localtime.setUTCHours(localtime.getUTCHours());
+					filterList.push(localtime);
+					console.log(filterList);
+				}
+			}
+	});
+	
+$('.form_datetime').datetimepicker({
+	language:  'zh-CN',
+	startDate: "2014-06-03",
+	endDate: "2014-09-03",
+	weekStart: 1,
+	todayBtn:  1,
+	autoclose: 1,
+	todayHighlight: 1,
+	startView: 2,
+	minView: 1,
+	forceParse: 0,
+	minuteStep: 30,
+	filterDateList:filterList
+});
+
+$("#submit").on("click", function(){
+	var localDate = new Date($("#dtp_input1").val());
+	console.log(localDate);
+	localDate.setUTCHours(localDate.getUTCHours()+8);
+	//console.log(localDate);
+	filterList.push(localDate);
+	$('.form_datetime').data('datetimepicker').filterDateList = filterList;
+	$.post("/reserveDate",{date:localDate},function(result){
+		console.log(result);
+	});
+	
+	//$('.form_datetime').data('datetimepicker').filterDateList.push(localDate);
+	//console.log($('.form_datetime').data('datetimepicker').filterDateList);
+});
+</script>
+<%- include footer.html %>	

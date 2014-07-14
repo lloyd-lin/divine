@@ -1,0 +1,19 @@
+﻿
+
+@-webkit-keyframes fade-in {
+0% {
+	opacity:0.2;
+}
+40% {
+	opacity:0.4;
+}
+100% {
+	opacity:1;
+}
+}
+
+.nav {
+	-webkit-animation: fade-in 2s linear ;
+	
+	
+}

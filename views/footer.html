@@ -1,0 +1,79 @@
+﻿<div class="row">
+<footer>
+<span>版权所有<a href="/" target="_blank"> 精靈花園占卜屋</a> 2014</span>
+<span><a href="/" target="_blank">收藏我们</a> 2014</span>
+</footer>
+</div>
+</div>
+</body>
+<script>
+$("#logout").on("click",function() {
+	$.ajax({
+		url:"/logout",
+		success: function(data){
+			console.log("success to send async request");
+			window.location.reload();
+		}
+	});
+});
+$("#login").on("click",function() {
+	var data = {username:$("#account-name").val(),
+				password:$("#account-password").val()};
+	$.ajax({
+		type:"POST",
+		url:"/login",
+		data:data,
+		success: function(data){
+			console.log("success to send async request");
+			window.location.reload();
+		}
+	});
+$(document).keydown(function(e){
+	if (e.which === 37){
+		console.log("ENTER");
+		$("#login").click();
+	}
+});
+});
+</script>
+<!-- 
+<script src="/javascripts/jquery.js"></script>
+<script src="/javascripts/bootstrap.js"></script>
+<script src="/javascripts/divine.js"></script>
+<script src="/javascripts/timepicker/bootstrap-datetimepicker.js"></script>
+<script src="/javascripts/timepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript">
+$('.form_datetime').datetimepicker({
+	//language:  'fr',
+	weekStart: 1,
+	todayBtn:  1,
+	autoclose: 1,
+	todayHighlight: 1,
+	startView: 2,
+	forceParse: 0,
+	showMeridian: 1
+});
+$('.form_date').datetimepicker({
+	language:  'zh-CN',
+	weekStart: 1,
+	todayBtn:  1,
+	autoclose: 1,
+	todayHighlight: 1,
+	startView: 2,
+	minView: 2,
+	forceParse: 0
+});
+$('.form_time').datetimepicker({
+	language:  'zh-CN',
+	weekStart: 1,
+	todayBtn:  1,
+	autoclose: 1,
+	todayHighlight: 1,
+	startView: 1,
+	minView: 0,
+	maxView: 1,
+	forceParse: 0
+});
+</script>
+-->
+</html>

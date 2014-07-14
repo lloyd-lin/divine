@@ -1,0 +1,19 @@
+{
+    "name": "bae-nodejs",
+    "version": "1.0.0",
+    "author": "bae",
+    "description": "The first bae nodejs app!",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+		"express": "3.5.1",
+		"ejs": "*",
+		"mongoose":"*",
+		"connect-mongo": "*",
+		"connect-flash": "*",
+		"log4js": "0.6.9",
+        "thrift": "0.9.1"
+    }
+}
+
